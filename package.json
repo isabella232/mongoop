@@ -1,0 +1,13 @@
+{
+  "author": "Christopher Thorn <chris@koding.com> (http://koding.com)",
+  "private": true,
+  "name": "mongoop",
+  "description": "a little lib to implement mongo operators on the client.",
+  "version": "0.1.0",
+  "main": "index.coffee",
+  "dependencies": {
+    "deep-equal": "^0.1.2",
+    "kd-shim-jspath": "^0.1.1"
+  },
+  "devDependencies": {}
+}
