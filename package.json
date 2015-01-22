@@ -3,11 +3,17 @@
   "private": true,
   "name": "mongoop",
   "description": "a little lib to implement mongo operators on the client.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.coffee",
   "dependencies": {
     "deep-equal": "^0.1.2",
     "kd-shim-jspath": "^0.1.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "browserify": "^8.1.1",
+    "coffeeify": "^1.0.0"
+  }, 
+  "browser": {
+    "jspath": "kd-shim-jspath"
+  }
 }
