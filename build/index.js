@@ -1,10 +1,10 @@
 var MongoOp,
-  __slice = [].slice;
+  slice = [].slice;
 
 module.exports = MongoOp = (function() {
-  var deleteAt, getAt, isEqual, keys, popAt, pushAt, setAt, _ref;
+  var deleteAt, getAt, isEqual, keys, popAt, pushAt, ref, setAt;
 
-  _ref = require('jspath'), setAt = _ref.setAt, getAt = _ref.getAt, deleteAt = _ref.deleteAt, pushAt = _ref.pushAt, popAt = _ref.popAt;
+  ref = require('jspath'), setAt = ref.setAt, getAt = ref.getAt, deleteAt = ref.deleteAt, pushAt = ref.pushAt, popAt = ref.popAt;
 
   keys = Object.keys;
 
@@ -56,10 +56,10 @@ module.exports = MongoOp = (function() {
   MongoOp.prototype.$addToSet = (function() {
     var $addToSet;
     $addToSet = function(collection, val) {
-      var item, matchFound, _i, _len;
+      var item, j, len, matchFound;
       matchFound = false;
-      for (_i = 0, _len = collection.length; _i < _len; _i++) {
-        item = collection[_i];
+      for (j = 0, len = collection.length; j < len; j++) {
+        item = collection[j];
         if (!(isEqual(item, val))) {
           continue;
         }
@@ -73,20 +73,20 @@ module.exports = MongoOp = (function() {
     return function(target, fields) {
       return this.forEachField(fields, (function(_this) {
         return function(path, val) {
-          var child, collection, _i, _len, _ref1, _results;
+          var child, collection, j, len, ref1, results;
           collection = getAt(target, path);
           if (collection == null) {
             collection = [];
             setAt(target, path, collection);
           }
           if (val.$each != null) {
-            _ref1 = val.$each;
-            _results = [];
-            for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-              child = _ref1[_i];
-              _results.push($addToSet(collection, child));
+            ref1 = val.$each;
+            results = [];
+            for (j = 0, len = ref1.length; j < len; j++) {
+              child = ref1[j];
+              results.push($addToSet(collection, child));
             }
-            return _results;
+            return results;
           } else {
             return $addToSet(collection, val);
           }
@@ -103,7 +103,7 @@ module.exports = MongoOp = (function() {
 
   MongoOp.prototype.$pushAll = function(target, fields) {
     return this.forEachField(fields, function(path, vals) {
-      return pushAt.apply(null, [target, path].concat(__slice.call(vals)));
+      return pushAt.apply(null, [target, path].concat(slice.call(vals)));
     });
   };
 
@@ -113,19 +113,19 @@ module.exports = MongoOp = (function() {
 
   MongoOp.prototype.$pullAll = function(target, fields) {
     return this.forEachField(fields, function(path, val) {
-      var collection, i, index, _results;
+      var collection, i, index, results;
       collection = getAt(target, path);
       index = 0;
-      _results = [];
+      results = [];
       while (collection && index < collection.length) {
         i = index++;
         if (isEqual(collection[i], val)) {
-          _results.push(collection.splice(i, 1));
+          results.push(collection.splice(i, 1));
         } else {
-          _results.push(void 0);
+          results.push(void 0);
         }
       }
-      return _results;
+      return results;
     });
   };
 
